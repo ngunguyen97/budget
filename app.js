@@ -74,7 +74,7 @@ var UIControler = (function() {
 			return {
 				type: type,
 				description: description,
-				value: value
+				value: parseFloat(value)
 			}
 		},
 		addListItem: function(obj, type) {
@@ -134,23 +134,34 @@ var controller = (function(budgetCtrl, UIctrl) {
 
 	}
 
+	var updateBudget = function () {
+		// 1. Calculate the budget
+
+		// 2. Return the budget
+
+		// 3. Display the budget on the UI
+	}
+
 	var ctrlAddItem = function () {
 		var input, newItem;
 		// 1. Get the field input data
 		input = UIctrl.getInput();
 
-		// 2. Add the item to the budget controller
-		newItem = budgetCtrl.addItem(input.type, input.description, input.value);
+		if(input.description !== "" && !isNaN(input.value) && input.value > 0) {
+			// 2. Add the item to the budget controller
+			newItem = budgetCtrl.addItem(input.type, input.description, input.value);
 
-		// 3. Add the item to the UI
-		UIctrl.addListItem(newItem, input.type);
+			// 3. Add the item to the UI
+			UIctrl.addListItem(newItem, input.type);
 
-		// 4. Clear the input fields
-		UIctrl.clearFields();
+			// 4. Clear the input fields
+			UIctrl.clearFields();
 
-		// 5. Calculate the budget
+			// 5. Calculate and update the budget
+			updateBudget()
+		}
 
-		// 6. Display the budget on the UI
+		
 	}
 
 	return {
