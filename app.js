@@ -74,6 +74,22 @@ var budgetController = (function() {
 				data.percentage = -1;
 			}
 		},
+		deleteItem: function(type ,id) {
+			var ids, index;
+
+			
+			ids = data.allItems[type].map(function(current) {
+					return current.id;
+			});
+
+			
+			index = ids.indexOf(id);
+
+			if(index !== -1) {
+				data.allItems[type].splice(index,1);
+			}
+
+		},
 		getBudget: function() {
 			return {
 				budget: data.budget,
@@ -221,10 +237,25 @@ var controller = (function(budgetCtrl, UIctrl) {
 	};
 
 	var ctrlDeleteItem = function(event) {
-		var itemID;
+		var itemID, splitID, type, ID;
+
 		itemID = event.target.parentNode.parentNode.parentNode.parentNode.id;
 
 		console.dir(event.target.parentNode.parentNode.parentNode.parentNode);
+
+		if(itemID) {
+				splitID = itemID.split('-');
+				type = splitID[0];
+				ID = parseInt(splitID[1]);
+
+				// 1. delete the item from our structor
+				budgetCtrl.deleteItem(type, ID);
+
+				// 2. Delete from the UI
+
+
+				// 3. Update and show the new budgetLabel
+		}
 
 	}
 
