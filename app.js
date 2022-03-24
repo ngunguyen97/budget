@@ -174,8 +174,11 @@ var UIControler = (function() {
 				document.querySelector(DOMstrings.percentageLabel).textContent = obj.percentage + '%';
 			}else {
 				document.querySelector(DOMstrings.percentageLabel).textContent = '---';
-			}
-			
+			}		
+		},
+		deleteListItem: function(selectorID) {
+			var el = document.getElementById(selectorID);
+			el.parentNode.removeChild(el);
 
 		},
 		getDOMstrings: function() {
@@ -231,7 +234,8 @@ var controller = (function(budgetCtrl, UIctrl) {
 			UIctrl.clearFields();
 
 			// 5. Calculate and update the budget
-			updateBudget()
+				updateBudget();
+
 		}
 		
 	};
@@ -241,7 +245,6 @@ var controller = (function(budgetCtrl, UIctrl) {
 
 		itemID = event.target.parentNode.parentNode.parentNode.parentNode.id;
 
-		console.dir(event.target.parentNode.parentNode.parentNode.parentNode);
 
 		if(itemID) {
 				splitID = itemID.split('-');
@@ -252,9 +255,10 @@ var controller = (function(budgetCtrl, UIctrl) {
 				budgetCtrl.deleteItem(type, ID);
 
 				// 2. Delete from the UI
-
+				UIctrl.deleteListItem(itemID);
 
 				// 3. Update and show the new budgetLabel
+				updateBudget();
 		}
 
 	}
