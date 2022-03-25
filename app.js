@@ -279,6 +279,15 @@ var UIControler = (function() {
 
 			document.querySelector(DOMstrings.yearLabel).textContent = months[month] + ' ' + year; 
 		},
+		changeType: function() {
+			var fields = document.querySelectorAll(DOMstrings.inputType + ', '+ DOMstrings.inputDescription + ', ' + DOMstrings.inputValue);
+			
+				fields.forEach(function(element, index) {
+						element.classList.toggle('red-focus');
+						document.querySelector(DOMstrings.inputBtn).classList.toggle('red');			
+				});
+				
+		},
 		getDOMstrings: function() {
 			return DOMstrings;
 		}
@@ -302,6 +311,8 @@ var controller = (function(budgetCtrl, UIctrl) {
 		});
 
 		document.querySelector(DOM.container).addEventListener('click', ctrlDeleteItem);
+
+		document.querySelector(DOM.inputType).addEventListener('change', UIctrl.changeType);
 
 	}
 
